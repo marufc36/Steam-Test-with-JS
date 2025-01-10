@@ -22,7 +22,7 @@ describe("Steam", function () {
         searchResultPage = new SearchResultPage(driver);
     });
 
-    it("should open Steam and hover over element", async function () {
+    it("Steam Test", async function () {
         await homePage.open();
 
         // Verify page title
@@ -40,8 +40,8 @@ describe("Steam", function () {
         assert(await marketPage.isAdvancedSearchFormDisplayed(), "Advanced search form is not displayed");
 
         await marketPage.selectDota2();
-        await marketPage.selectHero("tag_npc_dota_hero_phantom_assassin");
-        await marketPage.selectRarity("tag_570_Rarity_Rarity_Rare");
+        await marketPage.selectHero();
+        await marketPage.selectRarity();
         await marketPage.clickSearchButton();
         assert(await searchResultPage.isSearchResultsDisplayed(), "Search results are not displayed");
         await searchResultPage.clickFirstItem();
@@ -57,4 +57,5 @@ describe("Steam", function () {
             await driver.quit();
         });
     });
+    
     
