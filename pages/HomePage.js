@@ -5,7 +5,7 @@ class HomePage {
         this.driver = driver;
         this.url = "https://store.steampowered.com/";
         this.communityMenu = By.xpath("//a[contains(@class,'menuitem') and contains(text(),'COMMUNITY')]");
-        this.market = By.xpath("//a[contains(@class,'submenuitem') and contains(text(),'Market')]");
+        this.market = By.xpath("(//a[contains(@class,'submenuitem') and contains(text(),'Market')])[2]");
     }
 
     async open() {
@@ -25,7 +25,8 @@ class HomePage {
 
     async clickMarketLink() {
         const element = await this.driver.wait(until.elementLocated(this.market), 5000);
-        await this.driver.executeScript("arguments[0].click();", element);
+       // await this.driver.executeScript("arguments[0].click();", element);
+        await element.click();
     }
 }
 
