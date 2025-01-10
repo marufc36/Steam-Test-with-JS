@@ -13,7 +13,7 @@ class MarketPage {
     }
 
     async getTitle() {
-        return await this.driver.getTitle();
+        return  this.driver.getTitle();
     }
 
     async clickAdvancedSearchButton() {
@@ -55,3 +55,4 @@ class MarketPage {
 }
 
 module.exports = MarketPage;
+
