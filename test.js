@@ -1,61 +1,52 @@
 require("chromedriver");
-const assert = require("assert");
 const { Builder } = require("selenium-webdriver");
 const HomePage = require("./pages/HomePage");
 const MarketPage = require("./pages/MarketPage");
 const SearchResultPage = require("./pages/SearchResultPage");
+const HomePageStep = require("./Steps/HomePageStep");
+const MarketPageStep = require("./Steps/MarketPageStep");
+const SearchResultPageStep = require("./Steps/SearchResultPageStep");
+const assert = require("assert");
 
-describe("Steam", function () {
+describe("Steam Test Advanced Search Filter", function () {
     this.timeout(60000);
     let driver;
-    let homePage;
-    let marketPage;
-    let searchResultPage;
-    
+    let homePage, marketPage, searchResultPage;
+    let homePageStep, marketPageStep, searchResultPageStep;
 
     before(async function () {
         driver = await new Builder().forBrowser("chrome").build();
         await driver.manage().window().maximize();
         await driver.manage().setTimeouts({ implicit: 10000, pageLoad: 30000, script: 30000 });
+
         homePage = new HomePage(driver);
         marketPage = new MarketPage(driver);
         searchResultPage = new SearchResultPage(driver);
+
+        homePageStep = new HomePageStep(homePage);
+        marketPageStep = new MarketPageStep(marketPage);
+        searchResultPageStep = new SearchResultPageStep(searchResultPage);
     });
 
     it("Steam Test", async function () {
-        await homePage.open();
+        // Step 1: Open Home Page and Verify Title
+        await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
 
-        // Verify page title
-        let title = await homePage.getTitle();
-        assert.equal(title, "Welcome to Steam");
+        // Step 2: Navigate to Market
+        await homePageStep.navigateToMarket();
+        await marketPageStep.verifyMarketPageTitle("Steam Community :: Steam Community Market");
 
-        // Hover over the element and navigate to Market
-        await homePage.hoverOverCommunityMenu();
-        await homePage.clickMarketLink();
-        let pageTitle = await marketPage.getTitle();
-        assert.equal(pageTitle, "Steam Community :: Steam Community Market");
+        // Step 3: Interact with Advanced Search
+        await marketPageStep.interactWithAdvancedSearch("Dota 2", "Phantom Assassin", "Rare");
 
-        // Interact with advanced search
-        await marketPage.clickAdvancedSearchButton();
-        assert(await marketPage.isAdvancedSearchFormDisplayed(), "Advanced search form is not displayed");
-
-        await marketPage.selectDota2();
-        await marketPage.selectHero();
-        await marketPage.selectRarity();
-        await marketPage.clickSearchButton();
-        assert(await searchResultPage.isSearchResultsDisplayed(), "Search results are not displayed");
-        await searchResultPage.clickFirstItem();
-        const isGameNameCorrect = await searchResultPage.verifyGameName("Dota 2");
-        assert.equal(isGameNameCorrect, true, "Game name does not match the selected filter");
-        const isRarityCorrect = await searchResultPage.verifyrarity("Rare");
-        assert.equal(isRarityCorrect, true, "Game name does not contain the expected rarity 'Rare'");
-
-
-
-        });
-        after(async function () {
-            await driver.quit();
-        });
+        // Step 4: Verify Search Results
+        await searchResultPageStep.verifySearchResultsDisplayed();
+        await searchResultPageStep.clickOnFirstItem();
+        await searchResultPageStep.verifyGameName("Dota 2");
+        await searchResultPageStep.verifyRarity("Rare");
     });
-    
-    
+
+    after(async function () {
+        await driver.quit();
+    });
+});
