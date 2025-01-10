@@ -5,10 +5,10 @@ class MarketPage {
         this.driver = driver;
         this.advancedSearchButton = By.xpath("//div[@class='market_search_advanced_button']");
         this.advancedSearchForm = By.xpath("//form[@id='market_advanced_search']");
-        this.dota2Option = By.xpath("//div[@id='app_option_570']");
-        this.heroOption = (heroValue) => By.xpath(`//option[@value='${heroValue}']`);
-        this.rarityOption = (rarityId) => By.xpath(`//input[@id='${rarityId}']`);
-        this.searchButton = By.xpath("//div[@class='btn_medium btn_green_white_innerfade']");
+        this.dota2Option = By.xpath("//div[contains(@class,'popup_item') and contains(@id,'app_option_570')]");
+        this.heroOption =  By.xpath("//option[contains(@value,'dota_hero_phantom_assassin')]");
+        this.rarityOption =  By.xpath("//input[contains(@id,'Rarity_Rare')]");
+        this.searchButton = By.xpath("//div[contains(@class,'btn_green')]");
         
     }
 
@@ -33,13 +33,13 @@ class MarketPage {
         await dota2.click();
     }
 
-    async selectHero(heroValue) {
-        const hero = await this.driver.wait(until.elementLocated(this.heroOption(heroValue)), 10000);
+    async selectHero() {
+        const hero = await this.driver.wait(until.elementLocated(this.heroOption), 10000);
         await hero.click();
     }
 
-    async selectRarity(rarityId) {
-        const rarity = await this.driver.findElement(this.rarityOption(rarityId));
+    async selectRarity() {
+        const rarity = await this.driver.findElement(this.rarityOption);
         await rarity.click();
     }
 
