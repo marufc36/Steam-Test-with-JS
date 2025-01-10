@@ -12,7 +12,7 @@ class SearchResultPage {
 
     async isSearchResultsDisplayed() {
         const results = await this.driver.findElement(this.searchResults);
-        return await results.isDisplayed();
+        return results.isDisplayed();
     }   
     
     async clickFirstItem() {
@@ -33,3 +33,4 @@ class SearchResultPage {
     }
 }
 module.exports = SearchResultPage;
+
