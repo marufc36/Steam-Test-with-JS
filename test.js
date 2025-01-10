@@ -64,6 +64,60 @@ describe("Steam Test Advanced Search Filter", function () {
         await searchResultPageStep.verifyRarity("Common");
     });
 
+    it("Test Case3", async function () {
+        // Step 1: Open Home Page and Verify Title
+        await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
+
+        // Step 2: Navigate to Market
+        await homePageStep.navigateToMarket();
+        await marketPageStep.verifyMarketPageTitle("Steam Community :: Steam Community Market");
+
+        // Step 3: Interact with Advanced Search
+        await marketPageStep.interactWithAdvancedSearchFor3rdTest("Dota 2", "Invoker", "Mythical");
+
+        // Step 4: Verify Search Results
+        await searchResultPageStep.verifySearchResultsDisplayed();
+        await searchResultPageStep.clickOnFirstItem();
+        await searchResultPageStep.verifyGameName("Dota 2");
+        await searchResultPageStep.verifyRarity("Mythical");
+    });
+
+    it("Test Case4", async function () {
+        // Step 1: Open Home Page and Verify Title
+        await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
+
+        // Step 2: Navigate to Market
+        await homePageStep.navigateToMarket();
+        await marketPageStep.verifyMarketPageTitle("Steam Community :: Steam Community Market");
+
+        // Step 3: Interact with Advanced Search
+        await marketPageStep.interactWithAdvancedSearchFor4thTest("Dota 2", "Oracle", "Immortal");
+
+        // Step 4: Verify Search Results
+        await searchResultPageStep.verifySearchResultsDisplayed();
+        await searchResultPageStep.clickOnFirstItem();
+        await searchResultPageStep.verifyGameName("Dota 2");
+        await searchResultPageStep.verifyRarity("Immortal");
+    });
+
+    it("Test Case5", async function () {
+        // Step 1: Open Home Page and Verify Title
+        await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
+
+        // Step 2: Navigate to Market
+        await homePageStep.navigateToMarket();
+        await marketPageStep.verifyMarketPageTitle("Steam Community :: Steam Community Market");
+
+        // Step 3: Interact with Advanced Search
+        await marketPageStep.interactWithAdvancedSearchFor5thTest("Dota 2", "Abaddon", "Rare");
+
+        // Step 4: Verify Search Results
+        await searchResultPageStep.verifySearchResultsDisplayed();
+       /* await searchResultPageStep.clickOnFirstItem();
+        await searchResultPageStep.verifyGameName("Dota 2");
+        await searchResultPageStep.verifyRarity("Rare");*/
+    });
+
     after(async function () {
         await driver.quit();
     });
