@@ -23,7 +23,7 @@ class MarketPage {
 
     async isAdvancedSearchFormDisplayed() {
         const form = await this.driver.findElement(this.advancedSearchForm);
-        return await form.isDisplayed();
+        return  form.isDisplayed();
     }
 
     async selectDota2() {
@@ -50,9 +50,10 @@ class MarketPage {
 
     async isSearchResultsDisplayed() {
         const results = await this.driver.findElement(this.searchResults);
-        return await results.isDisplayed();
+        return results.isDisplayed();
     }
 }
 
 module.exports = MarketPage;
+
 
