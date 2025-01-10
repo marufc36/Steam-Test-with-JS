@@ -28,7 +28,7 @@ describe("Steam Test Advanced Search Filter", function () {
         searchResultPageStep = new SearchResultPageStep(searchResultPage);
     });
 
-    it("Steam Test", async function () {
+    it("Test Case1", async function () {
         // Step 1: Open Home Page and Verify Title
         await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
 
@@ -44,6 +44,24 @@ describe("Steam Test Advanced Search Filter", function () {
         await searchResultPageStep.clickOnFirstItem();
         await searchResultPageStep.verifyGameName("Dota 2");
         await searchResultPageStep.verifyRarity("Rare");
+    });
+    
+    it("Test Case2", async function () {
+        // Step 1: Open Home Page and Verify Title
+        await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
+
+        // Step 2: Navigate to Market
+        await homePageStep.navigateToMarket();
+        await marketPageStep.verifyMarketPageTitle("Steam Community :: Steam Community Market");
+
+        // Step 3: Interact with Advanced Search
+        await marketPageStep.interactWithAdvancedSearchFor2ndTest("Dota 2", "Lina", "Common");
+
+        // Step 4: Verify Search Results
+        await searchResultPageStep.verifySearchResultsDisplayed();
+        await searchResultPageStep.clickOnFirstItem();
+        await searchResultPageStep.verifyGameName("Dota 2");
+        await searchResultPageStep.verifyRarity("Common");
     });
 
     after(async function () {
