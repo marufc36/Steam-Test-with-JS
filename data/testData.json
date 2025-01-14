@@ -1,0 +1,9 @@
+[
+    { "game": "Dota 2", "hero": "Phantom_Assassin", "rarity": "Rare" },
+    { "game": "Dota 2", "hero": "Lina", "rarity": "Common" },
+    { "game": "Dota 2", "hero": "Invoker", "rarity": "Mythical" },
+    { "game": "Dota 2", "hero": "Oracle", "rarity": "Immortal" },
+    { "game": "Dota 2", "hero": "Abaddon", "rarity": "Ancient" } ,
+    { "game": "Dota 2", "hero": "AntiMage", "rarity": "Uncommon" },
+    { "game": "Counter-Strike 2", "weapon": "G3SG1", "exterior": "Factory New" }
+]
