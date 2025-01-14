@@ -13,7 +13,7 @@ class HomePage {
     }
 
     async getTitle() {
-        return await this.driver.getTitle();
+        return this.driver.getTitle();
     }
 
     async hoverOverCommunityMenu() {
@@ -25,7 +25,6 @@ class HomePage {
 
     async clickMarketLink() {
         const element = await this.driver.wait(until.elementLocated(this.market), 5000);
-       // await this.driver.executeScript("arguments[0].click();", element);
         await element.click();
     }
 }
