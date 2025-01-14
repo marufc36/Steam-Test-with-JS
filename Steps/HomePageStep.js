@@ -18,3 +18,4 @@ class HomePageStep {
 }
 
 module.exports = HomePageStep;
+
