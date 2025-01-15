@@ -1,5 +1,6 @@
 const { By, until } = require("selenium-webdriver");
 
+
 class MarketPage {
     constructor(driver) {
         this.driver = driver;
@@ -10,7 +11,10 @@ class MarketPage {
         this.searchButton = By.xpath("//div[contains(@class,'btn_green')]");
         this.heroOptionLocator = (heroName) => By.xpath(`//option[contains(@value,'${heroName.toLowerCase()}')]`);
         this.rarityOptionLocator = (rarity) => By.xpath(`//input[contains(@id,'${rarity}')]`);
-        this.weaponOptionLocator =  By.xpath("//option[contains(@value,'G3SG1')]");
+        this.heroOptionAxe = By.xpath("//option[contains(@value,'axe')]");
+        this.qualityOptionLocator = By.xpath("//input[contains(@id,'unique')]");
+        this.qualityOptionLocatorCorrupted = By.xpath("//input[contains(@value,'corrupted')]");
+        this.weaponOptionLocator =  By.xpath("//option[contains(@value,'g3sg1')]");
         this.exteriorOptionLocator = By.xpath("//input[contains(@id,'WearCategory0')]");
         this.dropdownDota2 = By.xpath("//div[@id='app_option_0_selected']");
     }
@@ -49,6 +53,21 @@ class MarketPage {
         await hero.click();
     }
 
+    async selectHeroAxe() {
+        const hero = await this.driver.findElement(this.heroOptionAxe);
+        await hero.click();
+    }
+
+    async selectQuality() {
+        const quality = await this.driver.findElement(this.qualityOptionLocator);
+        await quality.click();
+    }
+
+    async selectQualityCorrupted() {
+        const quality = await this.driver.findElement(this.qualityOptionLocatorCorrupted);
+        await quality.click();
+    }
+
     async selectRarity(rarity) {
         const rarityLocator = this.rarityOptionLocator(rarity);
         const rarityOption = await this.driver.findElement(rarityLocator);
@@ -72,5 +91,6 @@ class MarketPage {
 }
 
 module.exports = MarketPage;
+
 
 
