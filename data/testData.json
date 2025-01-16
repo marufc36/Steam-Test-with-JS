@@ -1,0 +1,8 @@
+[
+    { "appId": "570", "hero": "Phantom_Assassin", "rarity": "Rare" },
+    { "appId": "570", "hero": "Lina", "rarity": "Common" },
+    { "appId": "570", "hero": "Invoker", "rarity": "Mythical" },
+    { "appId": "570", "hero": "Oracle", "rarity": "Immortal" },
+    { "appId": "570", "hero": "Abaddon", "rarity": "Ancient" },
+    { "appId": "570", "hero": "AntiMage", "rarity": "Uncommon" }
+]
