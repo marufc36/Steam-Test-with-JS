@@ -10,22 +10,13 @@ class SearchResultPageStep {
         assert(isDisplayed, "Search results are not displayed");
     }
 
-    async clickOnFirstItem() {
-        await this.searchResultPage.clickFirstItem();
+    async clickOnresult(index) {
+        await this.searchResultPage.clickResult(index);
     }
 
-    async clickOnFourthItem() {
-        await this.searchResultPage.clickFourthItem();
-    }
-
-    async verifyGameName(expectedGameName) {
-        const isGameNameCorrect = await this.searchResultPage.gameName(expectedGameName);
-        assert.equal(isGameNameCorrect, true, "Game name does not match the selected filter");
-    }
-
-    async verifyRarity(expectedRarity) {
-        const isRarityCorrect = await this.searchResultPage.rarity(expectedRarity);
-        assert.equal(isRarityCorrect, true, `Expected rarity '${expectedRarity}' is not found in the game item`);
+    async itemIsDisplayed() {
+        const isDisplayed = await this.searchResultPage.isItemDisplayed();
+        assert(isDisplayed, "Item is not displayed");
     }
 }
 

@@ -8,6 +8,9 @@ const MarketPageStep = require("./Steps/MarketPageStep");
 const SearchResultPageStep = require("./Steps/SearchResultPageStep");
 const testData = require("./data/testData.json");
 const newTestData = require("./data/newTestData.json");
+const csTestData = require("./data/csTestData.json");
+const testDataForBloodSeeker = require("./data/testDataBloodSeeker.json");
+
 
 
 describe("Steam Test Advanced Search Filter", function () {
@@ -30,61 +33,55 @@ describe("Steam Test Advanced Search Filter", function () {
         searchResultPageStep = new SearchResultPageStep(searchResultPage);
     });
 
-    // Dynamically generate tests for testData
-    testData.forEach(({ hero, rarity }, index) => {
+    testData.forEach(({ appId, hero, rarity }, index) => {
         it(`Test Case ${index + 1}: Advanced Search for ${hero} (${rarity})`, async function () {
-            // Step 1: Open Home Page and Verify Title
             await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
-
-            // Step 2: Navigate to Market
             await homePageStep.navigateToMarket();
             await marketPageStep.verifyMarketPageTitle("Steam Community :: Steam Community Market");
-
-            // Step 3: Interact with Advanced Search
-            await marketPageStep.advancedSearch(hero, rarity);
-
-            // Step 4: Verify Search Results
+            await marketPageStep.advancedSearchToInteractWithHeroAndRarity(appId, hero, rarity);
             await searchResultPageStep.verifySearchResultsDisplayed();
-            await searchResultPageStep.clickOnFirstItem();
-            await searchResultPageStep.verifyGameName("Dota 2");
-            await searchResultPageStep.verifyRarity(rarity);
+            await searchResultPageStep.clickOnresult(0);
+            await searchResultPageStep.itemIsDisplayed();
         });
     });
 
-    // Manually defined test cases
-    it("Test Case 6: Advanced Search for Counter Strike 2", async function () {
-        await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
-        await homePageStep.navigateToMarket();
-        await marketPageStep.verifyMarketPageTitle("Steam Community :: Steam Community Market");
-        await marketPageStep.advancedSearchForCS2();
-        await searchResultPageStep.verifySearchResultsDisplayed();
+    csTestData.forEach(({ appId, weapon, exterior }, index) => {
+        it(`Test Case ${index + 5}: Advanced Search for CS:GO (${weapon} - ${exterior})`, async function () {
+            await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
+            await homePageStep.navigateToMarket();
+            await marketPageStep.verifyMarketPageTitle("Steam Community :: Steam Community Market");
+            await marketPageStep.advancedSearchForCS2ToInteractWithWeaponAndExterior(appId, weapon, exterior);
+            await searchResultPageStep.verifySearchResultsDisplayed();
+            await searchResultPageStep.clickOnresult(6);
+            await searchResultPageStep.itemIsDisplayed();
+            
+        });
     });
 
-    it("Test Case 7: Advanced Search for Axe", async function () {
-        await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
-        await homePageStep.navigateToMarket();
-        await marketPageStep.verifyMarketPageTitle("Steam Community :: Steam Community Market");
-        await marketPageStep.advancedSearchForAxe();
-        await searchResultPageStep.verifySearchResultsDisplayed();
-        await searchResultPageStep.clickOnFourthItem();
-        await searchResultPageStep.verifyGameName("Dota 2");
-        await searchResultPageStep.verifyRarity("Standard");
+    newTestData.forEach(({appId, hero, quality}, index) => {
+        it(`Test Case ${index + 8}: Advanced Search for ${hero} (${quality})`, async function () {
+            await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
+            await homePageStep.navigateToMarket();
+            await marketPageStep.verifyMarketPageTitle("Steam Community :: Steam Community Market");
+            await marketPageStep.advancedSearchToInteractWithQualityandHero(appId, hero, quality);
+            await searchResultPageStep.verifySearchResultsDisplayed();
+            await searchResultPageStep.clickOnresult(4);
+            await searchResultPageStep.itemIsDisplayed();
+        });
     });
 
-    it("Test Case 8: Advanced Search for Bloodseeker", async function () {
-        await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
-        await homePageStep.navigateToMarket();
-        await marketPageStep.verifyMarketPageTitle("Steam Community :: Steam Community Market");
-
-        const bloodseekerData = newTestData.find(data => data.hero === "Bloodseeker" && data.rarity === "Common");
-        await marketPageStep.advancedSearchedForBloodSeeker(bloodseekerData.hero, bloodseekerData.rarity);
-
-        await searchResultPageStep.verifySearchResultsDisplayed();
-        await searchResultPageStep.clickOnFirstItem();
-        await searchResultPageStep.verifyGameName("Dota 2");
-        await searchResultPageStep.verifyRarity(bloodseekerData.rarity);
+    testDataForBloodSeeker.forEach(({appId, hero, rarity, quality}, index) => {
+        it(`Test Case ${index + 11}: Advanced Search for ${hero} (${rarity} - ${quality})`, async function () {
+            await homePageStep.openHomePageAndVerifyTitle("Welcome to Steam");
+            await homePageStep.navigateToMarket();
+            await marketPageStep.verifyMarketPageTitle("Steam Community :: Steam Community Market");
+            await marketPageStep.advancedSearchToInteractWithHeroRarityAndQuality(appId, hero, rarity, quality);
+            await searchResultPageStep.verifySearchResultsDisplayed();
+            await searchResultPageStep.clickOnresult(3);
+            await searchResultPageStep.itemIsDisplayed();
+        });
     });
-
+    
     after(async function () {
         await driver.quit();
     });

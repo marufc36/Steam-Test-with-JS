@@ -1,6 +1,5 @@
 const assert = require("assert");
 
-
 class MarketPageStep {
     constructor(marketPage) {
         this.marketPage = marketPage;
@@ -11,48 +10,47 @@ class MarketPageStep {
         assert.equal(actualTitle, expectedTitle, "Market page title does not match");
     }
 
-    async advancedSearch(heroOption, rarityOption) {
+    // Advanced Search for any hero and rarity
+    async advancedSearchToInteractWithHeroAndRarity(appId, hero, rarity) {
         await this.marketPage.clickAdvancedSearchButton();
         const isFormDisplayed = await this.marketPage.isAdvancedSearchFormDisplayed();
         assert(isFormDisplayed, "Advanced search form is not displayed");
-
-        await this.marketPage.selectDota2();
-        await this.marketPage.selectHero(heroOption);
-        await this.marketPage.selectRarity(rarityOption);
+        await this.marketPage.selectApp(appId);
+        await this.marketPage.selectHero(hero);
+        await this.marketPage.selectRarity(rarity);
         await this.marketPage.clickSearchButton();
-    }
+     }
 
-    async advancedSearchForCS2() {
+     async advancedSearchForCS2ToInteractWithWeaponAndExterior(appId, weapon,exterior ) {
         await this.marketPage.clickAdvancedSearchButton();
         const isFormDisplayed = await this.marketPage.isAdvancedSearchFormDisplayed();
         assert(isFormDisplayed, "Advanced search form is not displayed");
-    
-        await this.marketPage.selectCounterStrike();
-        await this.marketPage.selectWeapon();
-        await this.marketPage.selectExterior();
+        await this.marketPage.selectApp(appId);
+        await this.marketPage.selectWeapon(weapon);
+        await this.marketPage.selectExterior(exterior);
         await this.marketPage.clickSearchButton();
-    }
+     }
 
-    async advancedSearchForAxe() {
+     async advancedSearchToInteractWithQualityandHero(appId, hero, quality) {
         await this.marketPage.clickAdvancedSearchButton();
         const isFormDisplayed = await this.marketPage.isAdvancedSearchFormDisplayed();
         assert(isFormDisplayed, "Advanced search form is not displayed");
-        await this.marketPage.selectDota2();
-        await this.marketPage.selectHeroAxe();
-        await this.marketPage.selectQuality();
+        await this.marketPage.selectApp(appId);
+        await this.marketPage.selectHero(hero);
+        await this.marketPage.selectQuality(quality);
         await this.marketPage.clickSearchButton();
-    }
+     }
 
-    async advancedSearchedForBloodSeeker(heroOption, rarityOption) {
+     async advancedSearchToInteractWithHeroRarityAndQuality(appId, hero, rarity, quality) {
         await this.marketPage.clickAdvancedSearchButton();
-        await this.marketPage.selectDota2();
-        await this.marketPage.selectHero(heroOption);
-        await this.marketPage.selectRarity(rarityOption);
-        await this.marketPage.selectQualityCorrupted();
+        const isFormDisplayed = await this.marketPage.isAdvancedSearchFormDisplayed();
+        assert(isFormDisplayed, "Advanced search form is not displayed");
+        await this.marketPage.selectApp(appId);
+        await this.marketPage.selectHero(hero);
+        await this.marketPage.selectRarity(rarity);
+        await this.marketPage.selectQuality(quality);
         await this.marketPage.clickSearchButton();
-
-    }
-    
+     }
 }
 
 module.exports = MarketPageStep;
